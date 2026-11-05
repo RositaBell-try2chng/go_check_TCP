@@ -107,9 +107,7 @@ func (s *Scanner)Scan(ctx context.Context, hosts []string, ports []uint16) ([]Re
 		close(results)
 	}()
 
-	collected := make([]Result, 0)
-	for result := range results {
-		collected = append(collected, result)
-	}
+	collected := collector(ctx, results)
+
 	return collected, ctx.Err()
 }
